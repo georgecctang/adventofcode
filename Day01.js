@@ -1,5 +1,9 @@
+// https://adventofcode.com/2020/day/1
+
+
 const fs = require('fs');
 
+// find two numbers in the inputArray that sum to the target
 const findTwoNumbers = (inputArray, target) => {
   // Sort array 
   const numArray = inputArray.sort((a,b) => a - b); 
@@ -11,7 +15,6 @@ const findTwoNumbers = (inputArray, target) => {
     let continueSearch = true;
     let j = length - 1;
     while (continueSearch && i < j ) {
-      console.log(numArray[i],numArray[j], numArray[i] + numArray[j]);
       if (numArray[i] + numArray[j] === target) {
         return numArray[i] * numArray[j];
       }
@@ -25,23 +28,24 @@ const findTwoNumbers = (inputArray, target) => {
   return "Does not exist";
 }
 
+// find three numbers in the inputArray that sum to the target
 const findThreeNumbers = (inputArray, target) => {
   // Sort array 
   const numArray = inputArray.sort((a,b) => a - b); 
   let length = numArray.length;
 
   let i = 0;
-  // End search if sum of left number and right number < target;
   while (i < length  - 2) {
     let j = i + 1;
     while (j < length - 1) {
       let k = j + 1;
       let continueSearch = true;
       while (continueSearch &&  k < length) {
-        console.log(numArray[i],numArray[j], numArray[k], numArray[i] + numArray[j] + numArray[k]);
+        
         if (numArray[i] + numArray[j] + numArray[k]  === target) {
           return numArray[i] * numArray[j] * numArray[k];
         }
+        // End search if sum of the three numbers > target;
         if (numArray[i] + numArray[j] + numArray[k] > target) {
           continueSearch = false;
         }
@@ -56,7 +60,7 @@ const findThreeNumbers = (inputArray, target) => {
 
 
 
-fs.readFile('./Day01-data.txt',  (err, data) => { 
+fs.readFile('./data/Day01-data.txt',  (err, data) => { 
   if (err) throw err; 
 
   const str = data.toString().split("\n");
@@ -64,7 +68,6 @@ fs.readFile('./Day01-data.txt',  (err, data) => {
   for (let item of str) {
     numbers.push(Number(item));
   }
+  console.log(findTwoNumbers(numbers, 2020));
   console.log(findThreeNumbers(numbers, 2020));
 }) 
-
-console.log('hello');
